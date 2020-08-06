@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { AiOutlineClose } from "react-icons/ai";
 import Button from "./Button";
-import { removeItem } from "../actions";
+import { removeItem, updateQuantity } from "../actions";
 
 export const Cart = () => {
   const cartItems = useSelector((state) => Object.values(state));
@@ -44,7 +44,10 @@ const CartItem = ({ title, id, quantity }) => {
       </UpperLevel>
       <LowerLevel>
         <label>Quantity: </label>
-        <Input value={quantity} />
+        <Input
+          value={quantity}
+          onChange={(e) => dispatch(updateQuantity(id, e.target.value))}
+        />
       </LowerLevel>
     </ItemWrapper>
   );
@@ -101,6 +104,10 @@ const Input = styled.input`
   color: #edf7f6;
   text-align: center;
   font-size: 18px;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Footer = styled.div`
